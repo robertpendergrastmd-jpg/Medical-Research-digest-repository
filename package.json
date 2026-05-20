@@ -1,0 +1,12 @@
+{
+  "name": "medical-research-digest",
+  "version": "1.0.0",
+  "description": "Medical research article discovery and archiving tool",
+  "main": "index.html",
+  "scripts": {
+    "build": "echo 'Static site - no build needed'"
+  },
+  "keywords": ["medical", "research", "pubmed", "clinical"],
+  "author": "Robert Pendergrass, MD",
+  "license": "MIT"
+}

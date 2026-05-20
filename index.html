@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Research Digest</title>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #fafafa;
+            color: #2c2c2c;
+            line-height: 1.6;
+        }
+
+        body {
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        header {
+            margin-bottom: 40px;
+            border-bottom: 1px solid #e5e5e5;
+            padding-bottom: 30px;
+        }
+
+        .header-content h1 {
+            font-family: 'Crimson Text', serif;
+            font-size: 42px;
+            font-weight: 400;
+            margin-bottom: 8px;
+            color: #1a1a1a;
+            letter-spacing: -0.5px;
+        }
+
+        .header-content p {
+            font-size: 14px;
+            color: #666;
+            font-weight: 300;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 32px;
+            margin-top: 20px;
+            border-bottom: 1px solid #e5e5e5;
+            margin-bottom: -1px;
+        }
+
+        .nav-tabs button {
+            padding: 12px 0;
+            background: none;
+            border: none;
+            border-bottom: 2px solid transparent;
+            font-size: 14px;
+            font-weight: 500;
+            color: #999;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .nav-tabs button:hover {
+            color: #2c2c2c;
+        }
+
+        .nav-tabs button.active {
+            color: #1a1a1a;
+            border-bottom-color: #2c2c2c;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Search Section */
+        .search-section {
+            background: white;
+            border: 1px solid #e5e5e5;
+            border-radius: 8px;
+            padding: 28px;
+            margin-bottom: 32px;
+        }
+
+        .search-section h3 {
+            font-family: 'Crimson Text', serif;
+            font-size: 20px;
+            font-weight: 400;
+            margin-bottom: 16px;
+            color: #1a1a1a;
+        }
+
+        .search-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        @media (max-width: 768px) {
+            .search-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #999;
+            margin-bottom: 6px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select {
+            padding: 10px 12px;
+            border: 1px solid #e5e5e5;
+            border-radius: 6px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: #2c2c2c;
+            transition: border-color 0.2s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        select:focus {
+            outline: none;
+            border-color: #2c2c2c;
+            box-shadow: 0 0 0 3px rgba(44, 44, 44, 0.05);
+        }
+
+        .topics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 8px;
+            margin-top: 12px;
+            margin-bottom: 16px;
+        }
+
+        .topic-checkbox {
+            display: flex;
+            align-items: center;
+            padding: 8px 12px;
+            background: #f8f8f8;
+            border: 1px solid #e5e5e5;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 13px;
+        }
+
+        .topic-checkbox input[type="checkbox"] {
+            margin-right: 8px;
+            cursor: pointer;
+            width: 16px;
+            height: 16px;
+        }
+
+        .topic-checkbox:has(input:checked) {
+            background: #e8f5f3;
+            border-color: #4a9b8e;
+            color: #2c5f57;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        button.btn {
+            padding: 10px 20px;
+            border: 1px solid #2c2c2c;
+            background: #2c2c2c;
+            color: white;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        button.btn:hover {
+            background: #1a1a1a;
+            border-color: #1a1a1a;
+        }
+
+        button.btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        button.btn-secondary {
+            background: white;
+            color: #2c2c2c;
+            border: 1px solid #e5e5e5;
+        }
+
+        button.btn-secondary:hover {
+            background: #f8f8f8;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid #e5e5e5;
+            border-top-color: #2c2c2c;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-right: 8px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .status-message {
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            margin-bottom: 16px;
+        }
+
+        .status-message.success {
+            background: #e8f5f3;
+            color: #2c5f57;
+            border: 1px solid #b8ddd6;
+        }
+
+        .status-message.error {
+            background: #fde8e8;
+            color: #8b2c2c;
+            border: 1px solid #f0c0c0;
+        }
+
+        .status-message.info {
+            background: #f0f4f8;
+            color: #2c4a6f;
+            border: 1px solid #d0dce8;
+        }
+
+        /* Results Section */
+        .results-container {
+            display: grid;
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .article-card {
+            background: white;
+            border: 1px solid #e5e5e5;
+            border-radius: 8px;
+            padding: 24px;
+            transition: all 0.2s ease;
+        }
+
+        .article-card:hover {
+            border-color: #2c2c2c;
+            box-shadow: 0 4px 12px rgba(44, 44, 44, 0.08);
+        }
+
+        .article-title {
+            font-family: 'Crimson Text', serif;
+            font-size: 18px;
+            font-weight: 400;
+            margin-bottom: 8px;
+            line-height: 1.5;
+            color: #1a1a1a;
+        }
+
+        .article-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        .article-meta span {
+            display: flex;
+            align-items: center;
+        }
+
+        .article-meta span::after {
+            content: "•";
+            margin-left: 12px;
+            opacity: 0.3;
+        }
+
+        .article-meta span:last-child::after {
+            content: "";
+            margin-left: 0;
+        }
+
+        .article-abstract {
+            font-size: 13px;
+            color: #555;
+            line-height: 1.7;
+            margin-bottom: 12px;
+            border-left: 3px solid #f0f0f0;
+            padding-left: 12px;
+        }
+
+        .article-identifiers {
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 12px;
+            font-family: 'Courier New', monospace;
+            word-break: break-all;
+        }
+
+        .article-actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .article-actions a,
+        .article-actions button {
+            font-size: 12px;
+            padding: 6px 12px;
+            border: 1px solid #e5e5e5;
+            background: white;
+            color: #2c2c2c;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .article-actions a:hover,
+        .article-actions button:hover {
+            background: #f8f8f8;
+            border-color: #2c2c2c;
+        }
+
+        /* Archive Section */
+        .archive-controls {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 200px;
+            padding: 10px 12px;
+            border: 1px solid #e5e5e5;
+            border-radius: 6px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+        }
+
+        .filter-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+
+        .filter-tag {
+            padding: 6px 12px;
+            background: #f8f8f8;
+            border: 1px solid #e5e5e5;
+            border-radius: 20px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .filter-tag:hover {
+            border-color: #2c2c2c;
+        }
+
+        .filter-tag.active {
+            background: #e8f5f3;
+            border-color: #4a9b8e;
+            color: #2c5f57;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+
+        .empty-state-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+
+        .empty-state p {
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Settings Section */
+        .settings-section {
+            background: white;
+            border: 1px solid #e5e5e5;
+            border-radius: 8px;
+            padding: 28px;
+            margin-bottom: 20px;
+        }
+
+        .settings-section h3 {
+            font-family: 'Crimson Text', serif;
+            font-size: 20px;
+            font-weight: 400;
+            margin-bottom: 16px;
+            color: #1a1a1a;
+        }
+
+        .settings-content {
+            font-size: 13px;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        .settings-content ul {
+            margin-left: 20px;
+            margin-top: 12px;
+        }
+
+        .settings-content li {
+            margin-bottom: 8px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .stat-card {
+            background: white;
+            border: 1px solid #e5e5e5;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'Crimson Text', serif;
+            font-size: 32px;
+            font-weight: 400;
+            color: #2c2c2c;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #999;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <h1>Medical Research Digest</h1>
+                <p>Discover and archive clinical literature across your specialty interests</p>
+            </div>
+
+            <div class="nav-tabs">
+                <button class="active" onclick="switchTab('search')">Search & Discover</button>
+                <button onclick="switchTab('archive')">Archive</button>
+                <button onclick="switchTab('settings')">Settings</button>
+            </div>
+        </header>
+
+        <!-- SEARCH TAB -->
+        <div id="search" class="tab-content active">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="stat-archived">0</div>
+                    <div class="stat-label">Articles Saved</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="stat-last">—</div>
+                    <div class="stat-label">Last Search</div>
+                </div>
+            </div>
+
+            <div class="search-section">
+                <h3>Search PubMed</h3>
+
+                <div class="search-grid">
+                    <div class="form-group">
+                        <label>Search Keywords</label>
+                        <input type="text" id="searchKeywords" placeholder="e.g., integrative medicine, gut microbiome">
+                    </div>
+                    <div class="form-group">
+                        <label>Results Per Search</label>
+                        <input type="number" id="resultCount" value="15" min="1" max="100">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Topics (Select relevant areas)</label>
+                    <div class="topics-grid">
+                        <label class="topic-checkbox">
+                            <input type="checkbox" value="general medical practice"> General Medicine
+                        </label>
+                        <label class="topic-checkbox">
+                            <input type="checkbox" value="pediatrics"> Pediatrics
+                        </label>
+                        <label class="topic-checkbox">
+                            <input type="checkbox" value="preventive medicine"> Preventive Medicine
+                        </label>
+                        <label class="topic-checkbox">
+                            <input type="checkbox" value="integrative medicine"> Integrative Medicine
+                        </label>
+                        <label class="topic-checkbox">
+                            <input type="checkbox" value="clinical hypnosis"> Clinical Hypnosis
+                        </label>
+                        <label class="topic-checkbox">
+                            <input type="checkbox" value="pain management"> Pain Management
+                        </label>
+                        <label class="topic-checkbox">
+                            <input type="checkbox" value="chronic pain"> Chronic Pain
+                        </label>
+                        <label class="topic-checkbox">
+                            <input type="checkbox" value="gut microbiome"> Gut Microbiome
+                        </label>
+                        <label class="topic-checkbox">
+                            <input type="checkbox" value="obesity"> Obesity
+                        </label>
+                        <label class="topic-checkbox">
+                            <input type="checkbox" value="metabolic syndrome"> Metabolic Syndrome
+                        </label>
+                        <label class="topic-checkbox">
+                            <input type="checkbox" value="type 2 diabetes"> Type 2 Diabetes
+                        </label>
+                        <label class="topic-checkbox">
+                            <input type="checkbox" value="nutrition"> Nutrition
+                        </label>
+                        <label class="topic-checkbox">
+                            <input type="checkbox" value="cancer prevention"> Cancer Prevention
+                        </label>
+                        <label class="topic-checkbox">
+                            <input type="checkbox" value="cardiovascular disease"> Cardiovascular Disease
+                        </label>
+                        <label class="topic-checkbox">
+                            <input type="checkbox" value="anxiety disorders"> Anxiety Disorders
+                        </label>
+                        <label class="topic-checkbox">
+                            <input type="checkbox" value="psychosomatic medicine"> Psychosomatic Medicine
+                        </label>
+                        <label class="topic-checkbox">
+                            <input type="checkbox" value="nutritional psychiatry"> Nutritional Psychiatry
+                        </label>
+                        <label class="topic-checkbox">
+                            <input type="checkbox" value="sleep medicine"> Sleep Medicine
+                        </label>
+                        <label class="topic-checkbox">
+                            <input type="checkbox" value="medical cannabis"> Medical Cannabis
+                        </label>
+                        <label class="topic-checkbox">
+                            <input type="checkbox" value="psychedelics"> Psychedelics
+                        </label>
+                        <label class="topic-checkbox">
+                            <input type="checkbox" value="menopause"> Menopause
+                        </label>
+                    </div>
+                </div>
+
+                <div id="statusMessage"></div>
+
+                <div class="button-group">
+                    <button class="btn" onclick="performSearch()">
+                        <span id="searchButtonText">Search PubMed</span>
+                    </button>
+                    <button class="btn btn-secondary" onclick="clearSearch()">Clear Results</button>
+                </div>
+            </div>
+
+            <div id="resultsContainer" class="results-container"></div>
+        </div>
+
+        <!-- ARCHIVE TAB -->
+        <div id="archive" class="tab-content">
+            <div class="archive-controls">
+                <input type="text" class="search-box" id="archiveSearch" placeholder="Search your archive by title, author, topic..." onkeyup="filterArchive()">
+            </div>
+
+            <div id="archiveContent"></div>
+        </div>
+
+        <!-- SETTINGS TAB -->
+        <div id="settings" class="tab-content">
+            <div class="settings-section">
+                <h3>About This Tool</h3>
+                <div class="settings-content">
+                    <p>This tool searches PubMed directly from your browser and stores articles in your local browser storage. All your data stays on your device.</p>
+                    <p style="margin-top: 12px;"><strong>Features:</strong></p>
+                    <ul>
+                        <li>Search PubMed across 21+ clinical specialty areas</li>
+                        <li>Persistent local archive (survives browser restarts)</li>
+                        <li>Export/import articles for backup or multi-device sync</li>
+                        <li>Fully offline once loaded</li>
+                        <li>No account or login required</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <h3>Data Management</h3>
+                <div class="settings-content">
+                    <p style="margin-bottom: 16px;">Export or import your article collection as JSON. Use this to back up your archive or sync across devices.</p>
+                    <div class="button-group">
+                        <button class="btn btn-secondary" onclick="exportArchive()">Export Archive</button>
+                        <button class="btn btn-secondary" onclick="importArchive()">Import Archive</button>
+                    </div>
+                </div>
+                <input type="file" id="fileImport" accept=".json" style="display:none;" onchange="handleImport(event)">
+            </div>
+
+            <div class="settings-section">
+                <h3>How to Use</h3>
+                <div class="settings-content">
+                    <p><strong>Search:</strong> Use the search tab to query PubMed. Check the topics relevant to your interests or enter custom keywords. Results appear below.</p>
+                    <p style="margin-top: 12px;"><strong>Save Articles:</strong> Click "Save to Archive" on any result to store it permanently.</p>
+                    <p style="margin-top: 12px;"><strong>Browse Archive:</strong> View all saved articles in the Archive tab. Search and filter by title, author, or topic.</p>
+                    <p style="margin-top: 12px;"><strong>Sync Across Devices:</strong> Export your archive as JSON, then import it on another device to sync your collection.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize local storage
+        function initStorage() {
+            if (!localStorage.getItem('medicalResearchArchive')) {
+                localStorage.setItem('medicalResearchArchive', JSON.stringify([]));
+            }
+            if (!localStorage.getItem('lastSearch')) {
+                localStorage.setItem('lastSearch', 'Never');
+            }
+            updateStats();
+        }
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.nav-tabs button').forEach(b => b.classList.remove('active'));
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+
+            if (tabName === 'archive') {
+                renderArchive();
+            }
+        }
+
+        function showStatus(message, type = 'info') {
+            const el = document.getElementById('statusMessage');
+            el.className = `status-message ${type}`;
+            el.textContent = message;
+            el.style.display = 'block';
+            if (type !== 'error') {
+                setTimeout(() => el.style.display = 'none', 4000);
+            }
+        }
+
+        async function performSearch() {
+            const keywords = document.getElementById('searchKeywords').value.trim();
+            const selectedTopics = Array.from(document.querySelectorAll('.topic-checkbox input:checked'))
+                .map(c => c.value);
+            const resultCount = parseInt(document.getElementById('resultCount').value) || 15;
+
+            if (!keywords && selectedTopics.length === 0) {
+                showStatus('Please enter keywords or select at least one topic', 'error');
+                return;
+            }
+
+            const searchTerms = [keywords, ...selectedTopics].filter(t => t).join(' OR ');
+            const btn = event.target;
+            btn.disabled = true;
+            btn.innerHTML = '<span class="loading"></span>Searching...';
+
+            try {
+                const response = await fetch(
+                    `https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=${encodeURIComponent(searchTerms)}&retmax=${resultCount}&rettype=json`,
+                    { mode: 'cors' }
+                );
+
+                const data = await response.json();
+                const ids = data.esearchresult?.idlist || [];
+
+                if (ids.length === 0) {
+                    showStatus('No articles found. Try different keywords or topics.', 'info');
+                    document.getElementById('resultsContainer').innerHTML = '';
+                    btn.disabled = false;
+                    btn.innerHTML = 'Search PubMed';
+                    return;
+                }
+
+                // Fetch full details for each article
+                const detailResponse = await fetch(
+                    `https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=${ids.join(',')}&rettype=json`,
+                    { mode: 'cors' }
+                );
+
+                const detailData = await detailResponse.json();
+                const articles = detailData.result?.uids?.map(uid => {
+                    const article = detailData.result[uid];
+                    return {
+                        id: uid,
+                        title: article.title || 'Untitled',
+                        authors: article.authors?.map(a => a.name).join(', ') || 'Unknown',
+                        journal: article.source || '',
+                        year: article.pubdate ? new Date(article.pubdate).getFullYear() : '',
+                        abstract: article.abstract || 'No abstract available.',
+                        pmid: uid,
+                        doi: article.articleids?.find(a => a.idtype === 'doi')?.value || '',
+                        pubdate: article.pubdate || ''
+                    };
+                }) || [];
+
+                displayResults(articles);
+                localStorage.setItem('lastSearch', new Date().toLocaleDateString());
+                updateStats();
+                showStatus(`Found ${articles.length} articles`, 'success');
+                btn.disabled = false;
+                btn.innerHTML = 'Search PubMed';
+            } catch (error) {
+                console.error('Search error:', error);
+                showStatus('Search failed. Please check your connection or try different terms.', 'error');
+                btn.disabled = false;
+                btn.innerHTML = 'Search PubMed';
+            }
+        }
+
+        function displayResults(articles) {
+            const container = document.getElementById('resultsContainer');
+            container.innerHTML = articles.map(article => `
+                <div class="article-card">
+                    <div class="article-title">${escapeHtml(article.title)}</div>
+                    <div class="article-meta">
+                        <span>${escapeHtml(article.authors.split(',')[0])}</span>
+                        <span>${article.journal} ${article.year}</span>
+                    </div>
+                    <div class="article-abstract">${escapeHtml(article.abstract)}</div>
+                    <div class="article-identifiers">
+                        ${article.pmid ? `PMID: ${article.pmid}` : ''}
+                        ${article.doi ? ` | DOI: ${article.doi}` : ''}
+                    </div>
+                    <div class="article-actions">
+                        <a href="https://pubmed.ncbi.nlm.nih.gov/${article.pmid}/" target="_blank">PubMed Link</a>
+                        <button onclick="saveArticle('${article.pmid}', '${escapeHtml(article.title).replace(/'/g, "\\'")}', '${escapeHtml(article.authors).replace(/'/g, "\\'")}', '${article.journal}', '${article.year}', '${escapeHtml(article.abstract).replace(/'/g, "\\'")}', '${article.doi}')">Save to Archive</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function saveArticle(pmid, title, authors, journal, year, abstract, doi) {
+            const archive = JSON.parse(localStorage.getItem('medicalResearchArchive')) || [];
+            if (!archive.find(a => a.pmid === pmid)) {
+                archive.unshift({
+                    pmid,
+                    title,
+                    authors,
+                    journal,
+                    year,
+                    abstract,
+                    doi,
+                    savedDate: new Date().toLocaleDateString(),
+                    savedTime: new Date().toLocaleTimeString()
+                });
+                localStorage.setItem('medicalResearchArchive', JSON.stringify(archive));
+                updateStats();
+                showStatus('Article saved to archive', 'success');
+            } else {
+                showStatus('Article already in archive', 'info');
+            }
+        }
+
+        function renderArchive() {
+            const archive = JSON.parse(localStorage.getItem('medicalResearchArchive')) || [];
+            const searchTerm = document.getElementById('archiveSearch').value.toLowerCase();
+            const filtered = archive.filter(a =>
+                a.title.toLowerCase().includes(searchTerm) ||
+                a.authors.toLowerCase().includes(searchTerm) ||
+                a.journal.toLowerCase().includes(searchTerm)
+            );
+
+            const container = document.getElementById('archiveContent');
+
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📚</div>
+                        <p>${archive.length === 0 ? 'Your archive is empty. Search and save articles to get started.' : 'No results match your search.'}</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = `<div class="results-container">
+                ${filtered.map(article => `
+                    <div class="article-card">
+                        <div class="article-title">${escapeHtml(article.title)}</div>
+                        <div class="article-meta">
+                            <span>${escapeHtml(article.authors.split(',')[0])}</span>
+                            <span>${article.journal} ${article.year}</span>
+                            <span>Saved ${article.savedDate}</span>
+                        </div>
+                        <div class="article-abstract">${escapeHtml(article.abstract)}</div>
+                        <div class="article-identifiers">
+                            ${article.pmid ? `PMID: ${article.pmid}` : ''}
+                            ${article.doi ? ` | DOI: ${article.doi}` : ''}
+                        </div>
+                        <div class="article-actions">
+                            <a href="https://pubmed.ncbi.nlm.nih.gov/${article.pmid}/" target="_blank">PubMed Link</a>
+                            <button onclick="removeFromArchive('${article.pmid}')">Remove</button>
+                        </div>
+                    </div>
+                `).join('')}
+            </div>`;
+        }
+
+        function filterArchive() {
+            renderArchive();
+        }
+
+        function removeFromArchive(pmid) {
+            if (confirm('Remove this article from your archive?')) {
+                const archive = JSON.parse(localStorage.getItem('medicalResearchArchive')) || [];
+                const updated = archive.filter(a => a.pmid !== pmid);
+                localStorage.setItem('medicalResearchArchive', JSON.stringify(updated));
+                updateStats();
+                renderArchive();
+                showStatus('Article removed', 'success');
+            }
+        }
+
+        function exportArchive() {
+            const archive = JSON.parse(localStorage.getItem('medicalResearchArchive')) || [];
+            const dataStr = JSON.stringify(archive, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `medical-research-archive-${new Date().toISOString().split('T')[0]}.json`;
+            link.click();
+            showStatus('Archive exported successfully', 'success');
+        }
+
+        function importArchive() {
+            document.getElementById('fileImport').click();
+        }
+
+        function handleImport(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                try {
+                    const imported = JSON.parse(e.target.result);
+                    if (!Array.isArray(imported)) throw new Error('Invalid format');
+
+                    const current = JSON.parse(localStorage.getItem('medicalResearchArchive')) || [];
+                    const merged = [...imported, ...current].filter((a, i, self) =>
+                        i === self.findIndex(b => b.pmid === a.pmid)
+                    );
+
+                    localStorage.setItem('medicalResearchArchive', JSON.stringify(merged));
+                    updateStats();
+                    showStatus(`Imported ${imported.length} articles`, 'success');
+                    document.getElementById('fileImport').value = '';
+                } catch (error) {
+                    showStatus('Import failed. Check file format.', 'error');
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        function clearSearch() {
+            document.getElementById('resultsContainer').innerHTML = '';
+            document.getElementById('statusMessage').style.display = 'none';
+        }
+
+        function updateStats() {
+            const archive = JSON.parse(localStorage.getItem('medicalResearchArchive')) || [];
+            const lastSearch = localStorage.getItem('lastSearch') || 'Never';
+            document.getElementById('stat-archived').textContent = archive.length;
+            document.getElementById('stat-last').textContent = lastSearch;
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Initialize on load
+        window.addEventListener('load', initStorage);
+    </script>
+</body>
+</html>
