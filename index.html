@@ -6,34 +6,16 @@
     <title>Medical Research Digest</title>
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         html, body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             background: #fafafa;
             color: #2c2c2c;
             line-height: 1.6;
         }
-
-        body {
-            padding: 40px 20px;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        header {
-            margin-bottom: 40px;
-            border-bottom: 1px solid #e5e5e5;
-            padding-bottom: 30px;
-        }
-
+        body { padding: 40px 20px; }
+        .container { max-width: 1000px; margin: 0 auto; }
+        header { margin-bottom: 40px; border-bottom: 1px solid #e5e5e5; padding-bottom: 30px; }
         .header-content h1 {
             font-family: 'Crimson Text', serif;
             font-size: 42px;
@@ -42,13 +24,7 @@
             color: #1a1a1a;
             letter-spacing: -0.5px;
         }
-
-        .header-content p {
-            font-size: 14px;
-            color: #666;
-            font-weight: 300;
-        }
-
+        .header-content p { font-size: 14px; color: #666; font-weight: 300; }
         .nav-tabs {
             display: flex;
             gap: 32px;
@@ -56,7 +32,6 @@
             border-bottom: 1px solid #e5e5e5;
             margin-bottom: -1px;
         }
-
         .nav-tabs button {
             padding: 12px 0;
             background: none;
@@ -67,67 +42,34 @@
             color: #999;
             cursor: pointer;
             transition: all 0.2s ease;
-            position: relative;
         }
-
-        .nav-tabs button:hover {
-            color: #2c2c2c;
-        }
-
-        .nav-tabs button.active {
-            color: #1a1a1a;
-            border-bottom-color: #2c2c2c;
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        /* Search Section */
-        .search-section {
+        .nav-tabs button:hover { color: #2c2c2c; }
+        .nav-tabs button.active { color: #1a1a1a; border-bottom-color: #2c2c2c; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .search-section, .settings-section {
             background: white;
             border: 1px solid #e5e5e5;
             border-radius: 8px;
             padding: 28px;
             margin-bottom: 32px;
         }
-
-        .search-section h3 {
+        .search-section h3, .settings-section h3 {
             font-family: 'Crimson Text', serif;
             font-size: 20px;
             font-weight: 400;
             margin-bottom: 16px;
             color: #1a1a1a;
         }
-
         .search-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 16px;
             margin-bottom: 16px;
         }
-
-        @media (max-width: 768px) {
-            .search-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-        }
-
+        @media (max-width: 768px) { .search-grid { grid-template-columns: 1fr; } }
+        .form-group { display: flex; flex-direction: column; margin-bottom: 16px; }
         label {
             font-size: 12px;
             font-weight: 600;
@@ -136,10 +78,7 @@
             color: #999;
             margin-bottom: 6px;
         }
-
-        input[type="text"],
-        input[type="number"],
-        select {
+        input[type="text"], input[type="number"], select {
             padding: 10px 12px;
             border: 1px solid #e5e5e5;
             border-radius: 6px;
@@ -147,16 +86,13 @@
             font-size: 14px;
             color: #2c2c2c;
             transition: border-color 0.2s ease;
+            background: white;
         }
-
-        input[type="text"]:focus,
-        input[type="number"]:focus,
-        select:focus {
+        input[type="text"]:focus, input[type="number"]:focus, select:focus {
             outline: none;
             border-color: #2c2c2c;
             box-shadow: 0 0 0 3px rgba(44, 44, 44, 0.05);
         }
-
         .topics-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
@@ -164,7 +100,6 @@
             margin-top: 12px;
             margin-bottom: 16px;
         }
-
         .topic-checkbox {
             display: flex;
             align-items: center;
@@ -175,27 +110,23 @@
             cursor: pointer;
             transition: all 0.2s ease;
             font-size: 13px;
+            text-transform: none;
+            letter-spacing: normal;
+            color: #2c2c2c;
+            font-weight: 400;
         }
-
         .topic-checkbox input[type="checkbox"] {
             margin-right: 8px;
             cursor: pointer;
             width: 16px;
             height: 16px;
         }
-
         .topic-checkbox:has(input:checked) {
             background: #e8f5f3;
             border-color: #4a9b8e;
             color: #2c5f57;
         }
-
-        .button-group {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
+        .button-group { display: flex; gap: 12px; flex-wrap: wrap; }
         button.btn {
             padding: 10px 20px;
             border: 1px solid #2c2c2c;
@@ -207,27 +138,10 @@
             cursor: pointer;
             transition: all 0.2s ease;
         }
-
-        button.btn:hover {
-            background: #1a1a1a;
-            border-color: #1a1a1a;
-        }
-
-        button.btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
-        button.btn-secondary {
-            background: white;
-            color: #2c2c2c;
-            border: 1px solid #e5e5e5;
-        }
-
-        button.btn-secondary:hover {
-            background: #f8f8f8;
-        }
-
+        button.btn:hover { background: #1a1a1a; border-color: #1a1a1a; }
+        button.btn:disabled { opacity: 0.6; cursor: not-allowed; }
+        button.btn-secondary { background: white; color: #2c2c2c; border: 1px solid #e5e5e5; }
+        button.btn-secondary:hover { background: #f8f8f8; }
         .loading {
             display: inline-block;
             width: 16px;
@@ -238,43 +152,50 @@
             animation: spin 0.8s linear infinite;
             margin-right: 8px;
         }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
+        @keyframes spin { to { transform: rotate(360deg); } }
         .status-message {
             padding: 12px;
             border-radius: 6px;
             font-size: 13px;
             margin-bottom: 16px;
         }
-
-        .status-message.success {
+        .status-message.success { background: #e8f5f3; color: #2c5f57; border: 1px solid #b8ddd6; }
+        .status-message.error { background: #fde8e8; color: #8b2c2c; border: 1px solid #f0c0c0; }
+        .status-message.info { background: #f0f4f8; color: #2c4a6f; border: 1px solid #d0dce8; }
+        .results-container { display: grid; gap: 16px; margin-bottom: 32px; }
+        .search-summary {
+            background: #f0f4f8;
+            border: 1px solid #d0dce8;
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin-bottom: 24px;
+            font-size: 13px;
+            color: #2c4a6f;
+        }
+        .search-summary strong { color: #1a3a5f; }
+        .topic-section { margin-bottom: 32px; }
+        .topic-section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #e5e5e5;
+        }
+        .topic-section-title {
+            font-family: 'Crimson Text', serif;
+            font-size: 22px;
+            font-weight: 400;
+            color: #1a1a1a;
+        }
+        .topic-section-count {
             background: #e8f5f3;
             color: #2c5f57;
-            border: 1px solid #b8ddd6;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
         }
-
-        .status-message.error {
-            background: #fde8e8;
-            color: #8b2c2c;
-            border: 1px solid #f0c0c0;
-        }
-
-        .status-message.info {
-            background: #f0f4f8;
-            color: #2c4a6f;
-            border: 1px solid #d0dce8;
-        }
-
-        /* Results Section */
-        .results-container {
-            display: grid;
-            gap: 16px;
-            margin-bottom: 32px;
-        }
-
         .article-card {
             background: white;
             border: 1px solid #e5e5e5;
@@ -282,12 +203,7 @@
             padding: 24px;
             transition: all 0.2s ease;
         }
-
-        .article-card:hover {
-            border-color: #2c2c2c;
-            box-shadow: 0 4px 12px rgba(44, 44, 44, 0.08);
-        }
-
+        .article-card:hover { border-color: #2c2c2c; box-shadow: 0 4px 12px rgba(44, 44, 44, 0.08); }
         .article-title {
             font-family: 'Crimson Text', serif;
             font-size: 18px;
@@ -296,7 +212,6 @@
             line-height: 1.5;
             color: #1a1a1a;
         }
-
         .article-meta {
             display: flex;
             flex-wrap: wrap;
@@ -304,25 +219,10 @@
             font-size: 12px;
             color: #999;
             margin-bottom: 12px;
-            line-height: 1.6;
         }
-
-        .article-meta span {
-            display: flex;
-            align-items: center;
-        }
-
-        .article-meta span::after {
-            content: "•";
-            margin-left: 12px;
-            opacity: 0.3;
-        }
-
-        .article-meta span:last-child::after {
-            content: "";
-            margin-left: 0;
-        }
-
+        .article-meta span { display: flex; align-items: center; }
+        .article-meta span::after { content: "•"; margin-left: 12px; opacity: 0.3; }
+        .article-meta span:last-child::after { content: ""; margin-left: 0; }
         .article-abstract {
             font-size: 13px;
             color: #555;
@@ -331,7 +231,6 @@
             border-left: 3px solid #f0f0f0;
             padding-left: 12px;
         }
-
         .article-identifiers {
             font-size: 12px;
             color: #999;
@@ -339,15 +238,8 @@
             font-family: 'Courier New', monospace;
             word-break: break-all;
         }
-
-        .article-actions {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .article-actions a,
-        .article-actions button {
+        .article-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+        .article-actions a, .article-actions button {
             font-size: 12px;
             padding: 6px 12px;
             border: 1px solid #e5e5e5;
@@ -358,21 +250,8 @@
             text-decoration: none;
             transition: all 0.2s ease;
         }
-
-        .article-actions a:hover,
-        .article-actions button:hover {
-            background: #f8f8f8;
-            border-color: #2c2c2c;
-        }
-
-        /* Archive Section */
-        .archive-controls {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-
+        .article-actions a:hover, .article-actions button:hover { background: #f8f8f8; border-color: #2c2c2c; }
+        .archive-controls { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
         .search-box {
             flex: 1;
             min-width: 200px;
@@ -382,90 +261,18 @@
             font-family: 'Inter', sans-serif;
             font-size: 14px;
         }
-
-        .filter-tags {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            margin-bottom: 16px;
-        }
-
-        .filter-tag {
-            padding: 6px 12px;
-            background: #f8f8f8;
-            border: 1px solid #e5e5e5;
-            border-radius: 20px;
-            font-size: 12px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .filter-tag:hover {
-            border-color: #2c2c2c;
-        }
-
-        .filter-tag.active {
-            background: #e8f5f3;
-            border-color: #4a9b8e;
-            color: #2c5f57;
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 60px 20px;
-            color: #999;
-        }
-
-        .empty-state-icon {
-            font-size: 48px;
-            margin-bottom: 16px;
-            opacity: 0.5;
-        }
-
-        .empty-state p {
-            font-size: 14px;
-            line-height: 1.6;
-        }
-
-        /* Settings Section */
-        .settings-section {
-            background: white;
-            border: 1px solid #e5e5e5;
-            border-radius: 8px;
-            padding: 28px;
-            margin-bottom: 20px;
-        }
-
-        .settings-section h3 {
-            font-family: 'Crimson Text', serif;
-            font-size: 20px;
-            font-weight: 400;
-            margin-bottom: 16px;
-            color: #1a1a1a;
-        }
-
-        .settings-content {
-            font-size: 13px;
-            line-height: 1.8;
-            color: #555;
-        }
-
-        .settings-content ul {
-            margin-left: 20px;
-            margin-top: 12px;
-        }
-
-        .settings-content li {
-            margin-bottom: 8px;
-        }
-
+        .empty-state { text-align: center; padding: 60px 20px; color: #999; }
+        .empty-state-icon { font-size: 48px; margin-bottom: 16px; opacity: 0.5; }
+        .empty-state p { font-size: 14px; line-height: 1.6; }
+        .settings-content { font-size: 13px; line-height: 1.8; color: #555; }
+        .settings-content ul { margin-left: 20px; margin-top: 12px; }
+        .settings-content li { margin-bottom: 8px; }
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 16px;
             margin-bottom: 32px;
         }
-
         .stat-card {
             background: white;
             border: 1px solid #e5e5e5;
@@ -473,7 +280,6 @@
             padding: 20px;
             text-align: center;
         }
-
         .stat-number {
             font-family: 'Crimson Text', serif;
             font-size: 32px;
@@ -481,13 +287,23 @@
             color: #2c2c2c;
             margin-bottom: 4px;
         }
-
         .stat-label {
             font-size: 12px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             color: #999;
             font-weight: 600;
+        }
+        .filter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+        .saved-indicator {
+            font-size: 12px;
+            color: #2c5f57;
+            font-style: italic;
+            margin-left: 10px;
         }
     </style>
 </head>
@@ -498,11 +314,10 @@
                 <h1>Medical Research Digest</h1>
                 <p>Discover and archive clinical literature across your specialty interests</p>
             </div>
-
             <div class="nav-tabs">
-                <button class="active" onclick="switchTab('search')">Search & Discover</button>
-                <button onclick="switchTab('archive')">Archive</button>
-                <button onclick="switchTab('settings')">Settings</button>
+                <button class="active" onclick="switchTab('search', event)">Search & Discover</button>
+                <button onclick="switchTab('archive', event)">Archive</button>
+                <button onclick="switchTab('settings', event)">Settings</button>
             </div>
         </header>
 
@@ -524,88 +339,48 @@
 
                 <div class="search-grid">
                     <div class="form-group">
-                        <label>Search Keywords</label>
-                        <input type="text" id="searchKeywords" placeholder="e.g., integrative medicine, gut microbiome">
+                        <label>Search Keywords (required)</label>
+                        <input type="text" id="searchKeywords" placeholder="e.g., chronic headaches, gut microbiome">
                     </div>
                     <div class="form-group">
-                        <label>Results Per Search</label>
-                        <input type="number" id="resultCount" value="15" min="1" max="100">
+                        <label>Max Results Per Topic</label>
+                        <input type="number" id="resultCount" value="10" min="1" max="50">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label>Topics (Select relevant areas)</label>
+                    <label>Topic Areas (combines with keyword as "Keyword AND Topic")</label>
                     <div class="topics-grid">
-                        <label class="topic-checkbox">
-                            <input type="checkbox" value="general medical practice"> General Medicine
-                        </label>
-                        <label class="topic-checkbox">
-                            <input type="checkbox" value="pediatrics"> Pediatrics
-                        </label>
-                        <label class="topic-checkbox">
-                            <input type="checkbox" value="preventive medicine"> Preventive Medicine
-                        </label>
-                        <label class="topic-checkbox">
-                            <input type="checkbox" value="integrative medicine"> Integrative Medicine
-                        </label>
-                        <label class="topic-checkbox">
-                            <input type="checkbox" value="clinical hypnosis"> Clinical Hypnosis
-                        </label>
-                        <label class="topic-checkbox">
-                            <input type="checkbox" value="pain management"> Pain Management
-                        </label>
-                        <label class="topic-checkbox">
-                            <input type="checkbox" value="chronic pain"> Chronic Pain
-                        </label>
-                        <label class="topic-checkbox">
-                            <input type="checkbox" value="gut microbiome"> Gut Microbiome
-                        </label>
-                        <label class="topic-checkbox">
-                            <input type="checkbox" value="obesity"> Obesity
-                        </label>
-                        <label class="topic-checkbox">
-                            <input type="checkbox" value="metabolic syndrome"> Metabolic Syndrome
-                        </label>
-                        <label class="topic-checkbox">
-                            <input type="checkbox" value="type 2 diabetes"> Type 2 Diabetes
-                        </label>
-                        <label class="topic-checkbox">
-                            <input type="checkbox" value="nutrition"> Nutrition
-                        </label>
-                        <label class="topic-checkbox">
-                            <input type="checkbox" value="cancer prevention"> Cancer Prevention
-                        </label>
-                        <label class="topic-checkbox">
-                            <input type="checkbox" value="cardiovascular disease"> Cardiovascular Disease
-                        </label>
-                        <label class="topic-checkbox">
-                            <input type="checkbox" value="anxiety disorders"> Anxiety Disorders
-                        </label>
-                        <label class="topic-checkbox">
-                            <input type="checkbox" value="psychosomatic medicine"> Psychosomatic Medicine
-                        </label>
-                        <label class="topic-checkbox">
-                            <input type="checkbox" value="nutritional psychiatry"> Nutritional Psychiatry
-                        </label>
-                        <label class="topic-checkbox">
-                            <input type="checkbox" value="sleep medicine"> Sleep Medicine
-                        </label>
-                        <label class="topic-checkbox">
-                            <input type="checkbox" value="medical cannabis"> Medical Cannabis
-                        </label>
-                        <label class="topic-checkbox">
-                            <input type="checkbox" value="psychedelics"> Psychedelics
-                        </label>
-                        <label class="topic-checkbox">
-                            <input type="checkbox" value="menopause"> Menopause
-                        </label>
+                        <label class="topic-checkbox"><input type="checkbox" value="general medical practice"> General Medicine</label>
+                        <label class="topic-checkbox"><input type="checkbox" value="pediatrics OR adolescent"> Pediatrics</label>
+                        <label class="topic-checkbox"><input type="checkbox" value="preventive medicine"> Preventive Medicine</label>
+                        <label class="topic-checkbox"><input type="checkbox" value="integrative medicine"> Integrative Medicine</label>
+                        <label class="topic-checkbox"><input type="checkbox" value="clinical hypnosis OR hypnotherapy"> Clinical Hypnosis</label>
+                        <label class="topic-checkbox"><input type="checkbox" value="non-pharmacologic pain"> Non-Pharmacologic Pain</label>
+                        <label class="topic-checkbox"><input type="checkbox" value="chronic pain"> Chronic Pain</label>
+                        <label class="topic-checkbox"><input type="checkbox" value="gut microbiome OR intestinal microbiota"> Gut Microbiome</label>
+                        <label class="topic-checkbox"><input type="checkbox" value="GI disorders OR gastrointestinal"> GI Disorders</label>
+                        <label class="topic-checkbox"><input type="checkbox" value="obesity treatment"> Obesity</label>
+                        <label class="topic-checkbox"><input type="checkbox" value="metabolic syndrome"> Metabolic Syndrome</label>
+                        <label class="topic-checkbox"><input type="checkbox" value="type 2 diabetes"> Type 2 Diabetes</label>
+                        <label class="topic-checkbox"><input type="checkbox" value="nutrition"> Nutrition</label>
+                        <label class="topic-checkbox"><input type="checkbox" value="cancer prevention"> Cancer Prevention</label>
+                        <label class="topic-checkbox"><input type="checkbox" value="cardiovascular disease prevention"> CV Disease Prevention</label>
+                        <label class="topic-checkbox"><input type="checkbox" value="lipid management OR dyslipidemia"> Lipid Management</label>
+                        <label class="topic-checkbox"><input type="checkbox" value="anxiety disorders"> Anxiety Disorders</label>
+                        <label class="topic-checkbox"><input type="checkbox" value="psychosomatic medicine"> Psychosomatic Medicine</label>
+                        <label class="topic-checkbox"><input type="checkbox" value="nutritional psychiatry"> Nutritional Psychiatry</label>
+                        <label class="topic-checkbox"><input type="checkbox" value="sleep medicine OR insomnia"> Sleep Medicine</label>
+                        <label class="topic-checkbox"><input type="checkbox" value="medical cannabis OR cannabinoid"> Medical Cannabis</label>
+                        <label class="topic-checkbox"><input type="checkbox" value="psychedelics OR psilocybin OR MDMA"> Psychedelics</label>
+                        <label class="topic-checkbox"><input type="checkbox" value="menopause OR menopausal"> Menopause</label>
                     </div>
                 </div>
 
                 <div id="statusMessage"></div>
 
                 <div class="button-group">
-                    <button class="btn" onclick="performSearch()">
+                    <button class="btn" onclick="performSearch(event)">
                         <span id="searchButtonText">Search PubMed</span>
                     </button>
                     <button class="btn btn-secondary" onclick="clearSearch()">Clear Results</button>
@@ -620,24 +395,63 @@
             <div class="archive-controls">
                 <input type="text" class="search-box" id="archiveSearch" placeholder="Search your archive by title, author, topic..." onkeyup="filterArchive()">
             </div>
-
             <div id="archiveContent"></div>
         </div>
 
         <!-- SETTINGS TAB -->
         <div id="settings" class="tab-content">
             <div class="settings-section">
-                <h3>About This Tool</h3>
-                <div class="settings-content">
-                    <p>This tool searches PubMed directly from your browser and stores articles in your local browser storage. All your data stays on your device.</p>
-                    <p style="margin-top: 12px;"><strong>Features:</strong></p>
-                    <ul>
-                        <li>Search PubMed across 21+ clinical specialty areas</li>
-                        <li>Persistent local archive (survives browser restarts)</li>
-                        <li>Export/import articles for backup or multi-device sync</li>
-                        <li>Fully offline once loaded</li>
-                        <li>No account or login required</li>
-                    </ul>
+                <h3>Search Filters <span class="saved-indicator" id="filtersSavedIndicator"></span></h3>
+                <div class="settings-content" style="margin-bottom: 20px;">
+                    <p>These filters apply to every search. Adjust to your preferences and click Save.</p>
+                </div>
+
+                <div class="filter-grid">
+                    <div class="form-group">
+                        <label>Start Year</label>
+                        <input type="number" id="filterStartYear" min="1900" max="2030" value="2016">
+                    </div>
+                    <div class="form-group">
+                        <label>End Year</label>
+                        <input type="number" id="filterEndYear" min="1900" max="2030" value="2026">
+                    </div>
+                    <div class="form-group">
+                        <label>Language</label>
+                        <select id="filterLanguage">
+                            <option value="english">English Only</option>
+                            <option value="all">All Languages</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Subject</label>
+                        <select id="filterSubject">
+                            <option value="humans">Human Studies Only</option>
+                            <option value="all">All (incl. animal/in vitro)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Article Type</label>
+                        <select id="filterArticleType">
+                            <option value="all">All Article Types</option>
+                            <option value="review">Reviews Only</option>
+                            <option value="clinical_trial">Clinical Trials Only</option>
+                            <option value="meta_analysis">Meta-Analyses Only</option>
+                            <option value="systematic_review">Systematic Reviews Only</option>
+                            <option value="randomized_controlled_trial">RCTs Only</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Sort By</label>
+                        <select id="filterSort">
+                            <option value="date">Most Recent</option>
+                            <option value="relevance">Relevance</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div style="margin-top: 20px;">
+                    <button class="btn" onclick="saveFilters()">Save Filters</button>
+                    <button class="btn btn-secondary" onclick="resetFilters()">Reset to Defaults</button>
                 </div>
             </div>
 
@@ -656,17 +470,25 @@
             <div class="settings-section">
                 <h3>How to Use</h3>
                 <div class="settings-content">
-                    <p><strong>Search:</strong> Use the search tab to query PubMed. Check the topics relevant to your interests or enter custom keywords. Results appear below.</p>
+                    <p><strong>Boolean AND Search:</strong> Your keyword is combined with each selected topic. Example: "chronic headaches" + Pediatrics, Cannabis = TWO searches: (chronic headaches AND pediatrics) and (chronic headaches AND cannabis).</p>
+                    <p style="margin-top: 12px;"><strong>Results Grouped by Topic:</strong> Each topic gets its own section showing relevant articles.</p>
+                    <p style="margin-top: 12px;"><strong>Filters Applied to All Searches:</strong> Date range, language, humans-only, and article type filters apply to every search automatically.</p>
                     <p style="margin-top: 12px;"><strong>Save Articles:</strong> Click "Save to Archive" on any result to store it permanently.</p>
-                    <p style="margin-top: 12px;"><strong>Browse Archive:</strong> View all saved articles in the Archive tab. Search and filter by title, author, or topic.</p>
-                    <p style="margin-top: 12px;"><strong>Sync Across Devices:</strong> Export your archive as JSON, then import it on another device to sync your collection.</p>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // Initialize local storage
+        const DEFAULT_FILTERS = {
+            startYear: 2016,
+            endYear: new Date().getFullYear(),
+            language: 'english',
+            subject: 'humans',
+            articleType: 'all',
+            sort: 'date'
+        };
+
         function initStorage() {
             if (!localStorage.getItem('medicalResearchArchive')) {
                 localStorage.setItem('medicalResearchArchive', JSON.stringify([]));
@@ -674,18 +496,52 @@
             if (!localStorage.getItem('lastSearch')) {
                 localStorage.setItem('lastSearch', 'Never');
             }
+            if (!localStorage.getItem('searchFilters')) {
+                localStorage.setItem('searchFilters', JSON.stringify(DEFAULT_FILTERS));
+            }
+            loadFilters();
             updateStats();
         }
 
-        function switchTab(tabName) {
+        function loadFilters() {
+            const filters = JSON.parse(localStorage.getItem('searchFilters')) || DEFAULT_FILTERS;
+            document.getElementById('filterStartYear').value = filters.startYear;
+            document.getElementById('filterEndYear').value = filters.endYear;
+            document.getElementById('filterLanguage').value = filters.language;
+            document.getElementById('filterSubject').value = filters.subject;
+            document.getElementById('filterArticleType').value = filters.articleType;
+            document.getElementById('filterSort').value = filters.sort;
+        }
+
+        function saveFilters() {
+            const filters = {
+                startYear: parseInt(document.getElementById('filterStartYear').value) || DEFAULT_FILTERS.startYear,
+                endYear: parseInt(document.getElementById('filterEndYear').value) || DEFAULT_FILTERS.endYear,
+                language: document.getElementById('filterLanguage').value,
+                subject: document.getElementById('filterSubject').value,
+                articleType: document.getElementById('filterArticleType').value,
+                sort: document.getElementById('filterSort').value
+            };
+            localStorage.setItem('searchFilters', JSON.stringify(filters));
+            const indicator = document.getElementById('filtersSavedIndicator');
+            indicator.textContent = '✓ Filters saved';
+            setTimeout(() => { indicator.textContent = ''; }, 3000);
+        }
+
+        function resetFilters() {
+            localStorage.setItem('searchFilters', JSON.stringify(DEFAULT_FILTERS));
+            loadFilters();
+            const indicator = document.getElementById('filtersSavedIndicator');
+            indicator.textContent = '✓ Reset to defaults';
+            setTimeout(() => { indicator.textContent = ''; }, 3000);
+        }
+
+        function switchTab(tabName, event) {
             document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
             document.querySelectorAll('.nav-tabs button').forEach(b => b.classList.remove('active'));
             document.getElementById(tabName).classList.add('active');
             event.target.classList.add('active');
-
-            if (tabName === 'archive') {
-                renderArchive();
-            }
+            if (tabName === 'archive') renderArchive();
         }
 
         function showStatus(message, type = 'info') {
@@ -694,102 +550,211 @@
             el.textContent = message;
             el.style.display = 'block';
             if (type !== 'error') {
-                setTimeout(() => el.style.display = 'none', 4000);
+                setTimeout(() => el.style.display = 'none', 5000);
             }
         }
 
-        async function performSearch() {
-            const keywords = document.getElementById('searchKeywords').value.trim();
-            const selectedTopics = Array.from(document.querySelectorAll('.topic-checkbox input:checked'))
-                .map(c => c.value);
-            const resultCount = parseInt(document.getElementById('resultCount').value) || 15;
+        function buildFilterQuery() {
+            const filters = JSON.parse(localStorage.getItem('searchFilters')) || DEFAULT_FILTERS;
+            const parts = [];
+            
+            // Date range
+            parts.push(`("${filters.startYear}/01/01"[Date - Publication] : "${filters.endYear}/12/31"[Date - Publication])`);
+            
+            // Language
+            if (filters.language === 'english') {
+                parts.push('english[Language]');
+            }
+            
+            // Subject
+            if (filters.subject === 'humans') {
+                parts.push('humans[Mesh]');
+            }
+            
+            // Article type
+            const articleTypeMap = {
+                'review': 'review[Publication Type]',
+                'clinical_trial': 'clinical trial[Publication Type]',
+                'meta_analysis': 'meta-analysis[Publication Type]',
+                'systematic_review': 'systematic review[Publication Type]',
+                'randomized_controlled_trial': 'randomized controlled trial[Publication Type]'
+            };
+            if (articleTypeMap[filters.articleType]) {
+                parts.push(articleTypeMap[filters.articleType]);
+            }
+            
+            return parts.length > 0 ? ' AND ' + parts.join(' AND ') : '';
+        }
 
-            if (!keywords && selectedTopics.length === 0) {
+        async function searchSingleTopic(keyword, topic, maxResults) {
+            const filters = JSON.parse(localStorage.getItem('searchFilters')) || DEFAULT_FILTERS;
+            const filterQuery = buildFilterQuery();
+            const fullQuery = topic ? `(${keyword}) AND (${topic})${filterQuery}` : `(${keyword})${filterQuery}`;
+            const sortParam = filters.sort === 'date' ? '&sort=date' : '';
+            
+            const searchUrl = `https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=${encodeURIComponent(fullQuery)}&retmax=${maxResults}&rettype=xml${sortParam}`;
+            const searchResponse = await fetch(searchUrl);
+            const searchText = await searchResponse.text();
+            
+            const parser = new DOMParser();
+            const searchXml = parser.parseFromString(searchText, 'text/xml');
+            const ids = Array.from(searchXml.querySelectorAll('Id')).map(el => el.textContent);
+
+            if (ids.length === 0) return { topic, articles: [], query: fullQuery };
+
+            const detailUrl = `https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=${ids.join(',')}&rettype=xml`;
+            const detailResponse = await fetch(detailUrl);
+            const detailText = await detailResponse.text();
+            const detailXml = parser.parseFromString(detailText, 'text/xml');
+
+            const articles = Array.from(detailXml.querySelectorAll('PubmedArticle')).map(article => {
+                const titleEl = article.querySelector('ArticleTitle');
+                const abstractEl = article.querySelector('AbstractText');
+                const authorsEl = article.querySelectorAll('Author');
+                const journalEl = article.querySelector('Journal Title');
+                const pubDateEl = article.querySelector('PubDate Year');
+                const pmidEl = article.querySelector('PMID');
+                const doiEl = article.querySelector('ArticleId[IdType="doi"]');
+
+                const authors = Array.from(authorsEl).map(a => {
+                    const ln = a.querySelector('LastName')?.textContent || '';
+                    const fn = a.querySelector('ForeName')?.textContent || '';
+                    return fn && ln ? `${ln} ${fn.charAt(0)}.` : ln || fn;
+                }).join(', ');
+
+                return {
+                    pmid: pmidEl?.textContent || 'N/A',
+                    title: titleEl?.textContent || 'Untitled',
+                    authors: authors || 'Unknown',
+                    journal: journalEl?.textContent || 'Journal',
+                    year: pubDateEl?.textContent || new Date().getFullYear(),
+                    abstract: abstractEl?.textContent || 'No abstract available.',
+                    doi: doiEl?.textContent || '',
+                    sourceTopic: topic || keyword
+                };
+            });
+
+            return { topic: topic || keyword, articles, query: fullQuery };
+        }
+
+        async function performSearch(event) {
+            const keyword = document.getElementById('searchKeywords').value.trim();
+            const selectedTopics = Array.from(document.querySelectorAll('.topic-checkbox input:checked'))
+                .map(c => ({ value: c.value, label: c.parentElement.textContent.trim() }));
+            const resultCount = parseInt(document.getElementById('resultCount').value) || 10;
+
+            if (!keyword && selectedTopics.length === 0) {
                 showStatus('Please enter keywords or select at least one topic', 'error');
                 return;
             }
 
-            const searchTerms = [keywords, ...selectedTopics].filter(t => t).join(' OR ');
             const btn = event.target;
             btn.disabled = true;
             btn.innerHTML = '<span class="loading"></span>Searching...';
 
             try {
-                // Step 1: Search PubMed for IDs
-                const searchUrl = `https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=${encodeURIComponent(searchTerms)}&retmax=${resultCount}&rettype=xml`;
-                const searchResponse = await fetch(searchUrl);
-                const searchText = await searchResponse.text();
+                let searches = [];
                 
-                // Parse XML to get IDs
-                const parser = new DOMParser();
-                const searchXml = parser.parseFromString(searchText, 'text/xml');
-                const ids = Array.from(searchXml.querySelectorAll('Id')).map(el => el.textContent);
-
-                if (ids.length === 0) {
-                    showStatus('No articles found. Try different keywords or topics.', 'info');
-                    document.getElementById('resultsContainer').innerHTML = '';
-                    btn.disabled = false;
-                    btn.innerHTML = 'Search PubMed';
-                    return;
+                if (keyword && selectedTopics.length > 0) {
+                    // Keyword + each topic = separate AND searches
+                    showStatus(`Running ${selectedTopics.length} searches: "${keyword}" AND each selected topic...`, 'info');
+                    searches = await Promise.all(
+                        selectedTopics.map(topic => searchSingleTopic(keyword, topic.value, resultCount).then(r => ({ ...r, topicLabel: topic.label })))
+                    );
+                } else if (keyword) {
+                    // Keyword only
+                    showStatus(`Searching: "${keyword}"...`, 'info');
+                    const result = await searchSingleTopic(keyword, null, resultCount);
+                    searches = [{ ...result, topicLabel: keyword }];
+                } else {
+                    // Topics only (no keyword)
+                    showStatus(`Searching ${selectedTopics.length} topic areas...`, 'info');
+                    searches = await Promise.all(
+                        selectedTopics.map(topic => searchSingleTopic(topic.value, null, resultCount).then(r => ({ ...r, topicLabel: topic.label })))
+                    );
                 }
 
-                // Step 2: Fetch full article details
-                const detailUrl = `https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=${ids.slice(0, resultCount).join(',')}&rettype=xml`;
-                const detailResponse = await fetch(detailUrl);
-                const detailText = await detailResponse.text();
-                const detailXml = parser.parseFromString(detailText, 'text/xml');
-
-                // Parse articles from XML
-                const articles = Array.from(detailXml.querySelectorAll('PubmedArticle')).map(article => {
-                    const titleEl = article.querySelector('ArticleTitle');
-                    const abstractEl = article.querySelector('AbstractText');
-                    const authorsEl = article.querySelectorAll('Author');
-                    const journalEl = article.querySelector('Journal Title');
-                    const pubDateEl = article.querySelector('PubDate Year');
-                    const pmidEl = article.querySelector('PMID');
-                    const doiEl = article.querySelector('ArticleId[IdType="doi"]');
-
-                    const authors = Array.from(authorsEl)
-                        .map(a => {
-                            const ln = a.querySelector('LastName')?.textContent || '';
-                            const fn = a.querySelector('ForeName')?.textContent || '';
-                            return fn && ln ? `${ln} ${fn.charAt(0)}.` : ln || fn;
-                        })
-                        .join(', ');
-
-                    return {
-                        pmid: pmidEl?.textContent || 'N/A',
-                        title: titleEl?.textContent || 'Untitled',
-                        authors: authors || 'Unknown',
-                        journal: journalEl?.textContent || 'Journal',
-                        year: pubDateEl?.textContent || new Date().getFullYear(),
-                        abstract: abstractEl?.textContent || 'No abstract available.',
-                        doi: doiEl?.textContent || ''
-                    };
-                });
-
-                displayResults(articles);
+                displayGroupedResults(searches, keyword);
                 localStorage.setItem('lastSearch', new Date().toLocaleDateString());
                 updateStats();
-                showStatus(`Found ${articles.length} articles`, 'success');
-                btn.disabled = false;
-                btn.innerHTML = 'Search PubMed';
+                
+                const totalArticles = searches.reduce((sum, s) => sum + s.articles.length, 0);
+                showStatus(`Found ${totalArticles} articles across ${searches.length} search${searches.length > 1 ? 'es' : ''}`, 'success');
             } catch (error) {
                 console.error('Search error:', error);
                 showStatus('Search failed. Please check your connection or try different terms.', 'error');
+            } finally {
                 btn.disabled = false;
                 btn.innerHTML = 'Search PubMed';
             }
         }
 
-        function displayResults(articles) {
+        function displayGroupedResults(searches, keyword) {
             const container = document.getElementById('resultsContainer');
-            container.innerHTML = articles.map(article => `
+            const filters = JSON.parse(localStorage.getItem('searchFilters')) || DEFAULT_FILTERS;
+            
+            // Build search summary
+            const filterDescriptions = [];
+            filterDescriptions.push(`<strong>${filters.startYear}–${filters.endYear}</strong>`);
+            if (filters.language === 'english') filterDescriptions.push('English');
+            if (filters.subject === 'humans') filterDescriptions.push('Human studies');
+            if (filters.articleType !== 'all') {
+                const typeLabels = {
+                    'review': 'Reviews',
+                    'clinical_trial': 'Clinical trials',
+                    'meta_analysis': 'Meta-analyses',
+                    'systematic_review': 'Systematic reviews',
+                    'randomized_controlled_trial': 'RCTs'
+                };
+                filterDescriptions.push(typeLabels[filters.articleType]);
+            }
+            filterDescriptions.push(filters.sort === 'date' ? 'Sorted by date' : 'Sorted by relevance');
+
+            const summaryHtml = `
+                <div class="search-summary">
+                    <strong>Search:</strong> ${keyword ? `"${escapeHtml(keyword)}"` : 'Topics only'} 
+                    ${searches.length > 1 ? `combined with ${searches.length} topics` : ''} 
+                    · <strong>Filters:</strong> ${filterDescriptions.join(' · ')}
+                </div>
+            `;
+
+            const groupedHtml = searches.map(search => {
+                if (search.articles.length === 0) {
+                    return `
+                        <div class="topic-section">
+                            <div class="topic-section-header">
+                                <div class="topic-section-title">${escapeHtml(search.topicLabel)}</div>
+                                <div class="topic-section-count">0 results</div>
+                            </div>
+                            <div class="empty-state" style="padding: 20px;">
+                                <p>No articles found for this topic. Try adjusting filters or keywords.</p>
+                            </div>
+                        </div>
+                    `;
+                }
+                
+                return `
+                    <div class="topic-section">
+                        <div class="topic-section-header">
+                            <div class="topic-section-title">${escapeHtml(search.topicLabel)}</div>
+                            <div class="topic-section-count">${search.articles.length} article${search.articles.length !== 1 ? 's' : ''}</div>
+                        </div>
+                        ${search.articles.map(article => articleCardHtml(article)).join('')}
+                    </div>
+                `;
+            }).join('');
+
+            container.innerHTML = summaryHtml + groupedHtml;
+        }
+
+        function articleCardHtml(article) {
+            const safeArticle = JSON.stringify(article).replace(/'/g, "&#39;");
+            return `
                 <div class="article-card">
                     <div class="article-title">${escapeHtml(article.title)}</div>
                     <div class="article-meta">
-                        <span>${escapeHtml(article.authors.split(',')[0])}</span>
-                        <span>${article.journal} ${article.year}</span>
+                        <span>${escapeHtml(article.authors.split(',').slice(0, 3).join(', '))}${article.authors.split(',').length > 3 ? ' et al.' : ''}</span>
+                        <span>${escapeHtml(article.journal)} ${article.year}</span>
                     </div>
                     <div class="article-abstract">${escapeHtml(article.abstract)}</div>
                     <div class="article-identifiers">
@@ -798,23 +763,18 @@
                     </div>
                     <div class="article-actions">
                         <a href="https://pubmed.ncbi.nlm.nih.gov/${article.pmid}/" target="_blank">PubMed Link</a>
-                        <button onclick="saveArticle('${article.pmid}', '${escapeHtml(article.title).replace(/'/g, "\\'")}', '${escapeHtml(article.authors).replace(/'/g, "\\'")}', '${article.journal}', '${article.year}', '${escapeHtml(article.abstract).replace(/'/g, "\\'")}', '${article.doi}')">Save to Archive</button>
+                        ${article.doi ? `<a href="https://doi.org/${article.doi}" target="_blank">DOI Link</a>` : ''}
+                        <button onclick='saveArticleFromData(${safeArticle})'>Save to Archive</button>
                     </div>
                 </div>
-            `).join('');
+            `;
         }
 
-        function saveArticle(pmid, title, authors, journal, year, abstract, doi) {
+        function saveArticleFromData(article) {
             const archive = JSON.parse(localStorage.getItem('medicalResearchArchive')) || [];
-            if (!archive.find(a => a.pmid === pmid)) {
+            if (!archive.find(a => a.pmid === article.pmid)) {
                 archive.unshift({
-                    pmid,
-                    title,
-                    authors,
-                    journal,
-                    year,
-                    abstract,
-                    doi,
+                    ...article,
                     savedDate: new Date().toLocaleDateString(),
                     savedTime: new Date().toLocaleTimeString()
                 });
@@ -832,7 +792,8 @@
             const filtered = archive.filter(a =>
                 a.title.toLowerCase().includes(searchTerm) ||
                 a.authors.toLowerCase().includes(searchTerm) ||
-                a.journal.toLowerCase().includes(searchTerm)
+                a.journal.toLowerCase().includes(searchTerm) ||
+                (a.sourceTopic || '').toLowerCase().includes(searchTerm)
             );
 
             const container = document.getElementById('archiveContent');
@@ -852,9 +813,10 @@
                     <div class="article-card">
                         <div class="article-title">${escapeHtml(article.title)}</div>
                         <div class="article-meta">
-                            <span>${escapeHtml(article.authors.split(',')[0])}</span>
-                            <span>${article.journal} ${article.year}</span>
+                            <span>${escapeHtml(article.authors.split(',').slice(0, 3).join(', '))}${article.authors.split(',').length > 3 ? ' et al.' : ''}</span>
+                            <span>${escapeHtml(article.journal)} ${article.year}</span>
                             <span>Saved ${article.savedDate}</span>
+                            ${article.sourceTopic ? `<span>From: ${escapeHtml(article.sourceTopic)}</span>` : ''}
                         </div>
                         <div class="article-abstract">${escapeHtml(article.abstract)}</div>
                         <div class="article-identifiers">
@@ -863,6 +825,7 @@
                         </div>
                         <div class="article-actions">
                             <a href="https://pubmed.ncbi.nlm.nih.gov/${article.pmid}/" target="_blank">PubMed Link</a>
+                            ${article.doi ? `<a href="https://doi.org/${article.doi}" target="_blank">DOI Link</a>` : ''}
                             <button onclick="removeFromArchive('${article.pmid}')">Remove</button>
                         </div>
                     </div>
@@ -870,9 +833,7 @@
             </div>`;
         }
 
-        function filterArchive() {
-            renderArchive();
-        }
+        function filterArchive() { renderArchive(); }
 
         function removeFromArchive(pmid) {
             if (confirm('Remove this article from your archive?')) {
@@ -881,7 +842,6 @@
                 localStorage.setItem('medicalResearchArchive', JSON.stringify(updated));
                 updateStats();
                 renderArchive();
-                showStatus('Article removed', 'success');
             }
         }
 
@@ -894,34 +854,27 @@
             link.href = url;
             link.download = `medical-research-archive-${new Date().toISOString().split('T')[0]}.json`;
             link.click();
-            showStatus('Archive exported successfully', 'success');
         }
 
-        function importArchive() {
-            document.getElementById('fileImport').click();
-        }
+        function importArchive() { document.getElementById('fileImport').click(); }
 
         function handleImport(event) {
             const file = event.target.files[0];
             if (!file) return;
-
             const reader = new FileReader();
             reader.onload = (e) => {
                 try {
                     const imported = JSON.parse(e.target.result);
                     if (!Array.isArray(imported)) throw new Error('Invalid format');
-
                     const current = JSON.parse(localStorage.getItem('medicalResearchArchive')) || [];
                     const merged = [...imported, ...current].filter((a, i, self) =>
                         i === self.findIndex(b => b.pmid === a.pmid)
                     );
-
                     localStorage.setItem('medicalResearchArchive', JSON.stringify(merged));
                     updateStats();
-                    showStatus(`Imported ${imported.length} articles`, 'success');
                     document.getElementById('fileImport').value = '';
                 } catch (error) {
-                    showStatus('Import failed. Check file format.', 'error');
+                    alert('Import failed. Check file format.');
                 }
             };
             reader.readAsText(file);
@@ -940,12 +893,12 @@
         }
 
         function escapeHtml(text) {
+            if (text == null) return '';
             const div = document.createElement('div');
-            div.textContent = text;
+            div.textContent = String(text);
             return div.innerHTML;
         }
 
-        // Initialize on load
         window.addEventListener('load', initStorage);
     </script>
 </body>
