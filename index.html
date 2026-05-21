@@ -456,6 +456,30 @@
             </div>
 
             <div class="settings-section">
+                <h3>NCBI API Key (Optional - for faster searches)</h3>
+                <div class="settings-content" style="margin-bottom: 16px;">
+                    <p>Without an API key: 3 requests/second limit (may fail with many topics).</p>
+                    <p>With a free API key: 10 requests/second limit (much faster, more reliable).</p>
+                    <p style="margin-top: 10px;"><strong>To get a free key:</strong></p>
+                    <ol style="margin-left: 20px; margin-top: 8px;">
+                        <li>Go to <a href="https://www.ncbi.nlm.nih.gov/account/" target="_blank" style="color: #2c5f57;">NCBI account page</a> and sign in (or create account)</li>
+                        <li>Click your username (top right) → "Account Settings"</li>
+                        <li>Scroll to "API Key Management" → Click "Create an API Key"</li>
+                        <li>Copy the key and paste it below</li>
+                    </ol>
+                </div>
+                <div class="form-group">
+                    <label>API Key (optional)</label>
+                    <input type="text" id="ncbiApiKeyInput" placeholder="Paste your NCBI API key here">
+                </div>
+                <div class="button-group">
+                    <button class="btn" onclick="saveApiKey()">Save API Key</button>
+                    <button class="btn btn-secondary" onclick="clearApiKey()">Remove Key</button>
+                </div>
+                <span class="saved-indicator" id="apiKeyIndicator"></span>
+            </div>
+
+            <div class="settings-section">
                 <h3>Data Management</h3>
                 <div class="settings-content">
                     <p style="margin-bottom: 16px;">Export or import your article collection as JSON. Use this to back up your archive or sync across devices.</p>
@@ -500,6 +524,7 @@
                 localStorage.setItem('searchFilters', JSON.stringify(DEFAULT_FILTERS));
             }
             loadFilters();
+            loadApiKey();
             updateStats();
         }
 
@@ -533,6 +558,32 @@
             loadFilters();
             const indicator = document.getElementById('filtersSavedIndicator');
             indicator.textContent = '✓ Reset to defaults';
+            setTimeout(() => { indicator.textContent = ''; }, 3000);
+        }
+
+        function loadApiKey() {
+            const apiKey = localStorage.getItem('ncbiApiKey') || '';
+            const input = document.getElementById('ncbiApiKeyInput');
+            if (input) input.value = apiKey;
+        }
+
+        function saveApiKey() {
+            const apiKey = document.getElementById('ncbiApiKeyInput').value.trim();
+            if (apiKey) {
+                localStorage.setItem('ncbiApiKey', apiKey);
+                const indicator = document.getElementById('apiKeyIndicator');
+                indicator.textContent = '✓ API key saved - faster searches enabled';
+                setTimeout(() => { indicator.textContent = ''; }, 4000);
+            } else {
+                alert('Please paste your API key first.');
+            }
+        }
+
+        function clearApiKey() {
+            localStorage.removeItem('ncbiApiKey');
+            document.getElementById('ncbiApiKeyInput').value = '';
+            const indicator = document.getElementById('apiKeyIndicator');
+            indicator.textContent = '✓ API key removed';
             setTimeout(() => { indicator.textContent = ''; }, 3000);
         }
 
@@ -586,14 +637,31 @@
             return parts.length > 0 ? ' AND ' + parts.join(' AND ') : '';
         }
 
+        // Sleep helper for rate limiting
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        // Get API key if user has configured one
+        function getApiKeyParam() {
+            const apiKey = localStorage.getItem('ncbiApiKey');
+            return apiKey ? `&api_key=${apiKey}` : '';
+        }
+
         async function searchSingleTopic(keyword, topic, maxResults) {
             const filters = JSON.parse(localStorage.getItem('searchFilters')) || DEFAULT_FILTERS;
             const filterQuery = buildFilterQuery();
             const fullQuery = topic ? `(${keyword}) AND (${topic})${filterQuery}` : `(${keyword})${filterQuery}`;
             const sortParam = filters.sort === 'date' ? '&sort=date' : '';
+            const apiKeyParam = getApiKeyParam();
             
-            const searchUrl = `https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=${encodeURIComponent(fullQuery)}&retmax=${maxResults}&rettype=xml${sortParam}`;
+            const searchUrl = `https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=${encodeURIComponent(fullQuery)}&retmax=${maxResults}&rettype=xml${sortParam}${apiKeyParam}`;
             const searchResponse = await fetch(searchUrl);
+            
+            if (searchResponse.status === 429) {
+                throw new Error('Rate limit hit. Wait a moment and try again.');
+            }
+            
             const searchText = await searchResponse.text();
             
             const parser = new DOMParser();
@@ -602,8 +670,16 @@
 
             if (ids.length === 0) return { topic, articles: [], query: fullQuery };
 
-            const detailUrl = `https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=${ids.join(',')}&rettype=xml`;
+            // Wait 400ms between search and detail fetch to respect rate limits
+            await sleep(400);
+
+            const detailUrl = `https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=${ids.join(',')}&rettype=xml${apiKeyParam}`;
             const detailResponse = await fetch(detailUrl);
+            
+            if (detailResponse.status === 429) {
+                throw new Error('Rate limit hit. Wait a moment and try again.');
+            }
+            
             const detailText = await detailResponse.text();
             const detailXml = parser.parseFromString(detailText, 'text/xml');
 
@@ -656,22 +732,39 @@
                 let searches = [];
                 
                 if (keyword && selectedTopics.length > 0) {
-                    // Keyword + each topic = separate AND searches
-                    showStatus(`Running ${selectedTopics.length} searches: "${keyword}" AND each selected topic...`, 'info');
-                    searches = await Promise.all(
-                        selectedTopics.map(topic => searchSingleTopic(keyword, topic.value, resultCount).then(r => ({ ...r, topicLabel: topic.label })))
-                    );
+                    // Keyword + each topic = separate AND searches (sequential to respect rate limits)
+                    for (let i = 0; i < selectedTopics.length; i++) {
+                        const topic = selectedTopics[i];
+                        showStatus(`Searching topic ${i + 1} of ${selectedTopics.length}: "${keyword}" AND "${topic.label}"...`, 'info');
+                        try {
+                            const result = await searchSingleTopic(keyword, topic.value, resultCount);
+                            searches.push({ ...result, topicLabel: topic.label });
+                        } catch (err) {
+                            console.error(`Search failed for topic "${topic.label}":`, err);
+                            searches.push({ topic: topic.value, articles: [], topicLabel: topic.label, error: err.message });
+                        }
+                        // Delay between topic searches to stay under 3 req/sec limit
+                        if (i < selectedTopics.length - 1) await sleep(400);
+                    }
                 } else if (keyword) {
                     // Keyword only
                     showStatus(`Searching: "${keyword}"...`, 'info');
                     const result = await searchSingleTopic(keyword, null, resultCount);
                     searches = [{ ...result, topicLabel: keyword }];
                 } else {
-                    // Topics only (no keyword)
-                    showStatus(`Searching ${selectedTopics.length} topic areas...`, 'info');
-                    searches = await Promise.all(
-                        selectedTopics.map(topic => searchSingleTopic(topic.value, null, resultCount).then(r => ({ ...r, topicLabel: topic.label })))
-                    );
+                    // Topics only (no keyword) - sequential
+                    for (let i = 0; i < selectedTopics.length; i++) {
+                        const topic = selectedTopics[i];
+                        showStatus(`Searching topic ${i + 1} of ${selectedTopics.length}: "${topic.label}"...`, 'info');
+                        try {
+                            const result = await searchSingleTopic(topic.value, null, resultCount);
+                            searches.push({ ...result, topicLabel: topic.label });
+                        } catch (err) {
+                            console.error(`Search failed for topic "${topic.label}":`, err);
+                            searches.push({ topic: topic.value, articles: [], topicLabel: topic.label, error: err.message });
+                        }
+                        if (i < selectedTopics.length - 1) await sleep(400);
+                    }
                 }
 
                 displayGroupedResults(searches, keyword);
@@ -679,10 +772,15 @@
                 updateStats();
                 
                 const totalArticles = searches.reduce((sum, s) => sum + s.articles.length, 0);
-                showStatus(`Found ${totalArticles} articles across ${searches.length} search${searches.length > 1 ? 'es' : ''}`, 'success');
+                const errorCount = searches.filter(s => s.error).length;
+                if (errorCount > 0) {
+                    showStatus(`Found ${totalArticles} articles. ${errorCount} topic(s) failed - try again or add an API key in Settings.`, 'info');
+                } else {
+                    showStatus(`Found ${totalArticles} articles across ${searches.length} search${searches.length > 1 ? 'es' : ''}`, 'success');
+                }
             } catch (error) {
                 console.error('Search error:', error);
-                showStatus('Search failed. Please check your connection or try different terms.', 'error');
+                showStatus('Search failed. ' + error.message, 'error');
             } finally {
                 btn.disabled = false;
                 btn.innerHTML = 'Search PubMed';
