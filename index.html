@@ -305,6 +305,277 @@
             font-style: italic;
             margin-left: 10px;
         }
+
+        /* Folder System Styles */
+        .archive-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        @media (max-width: 768px) {
+            .archive-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .folder-sidebar {
+            background: white;
+            border: 1px solid #e5e5e5;
+            border-radius: 8px;
+            padding: 20px;
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+
+        .folder-sidebar h4 {
+            font-family: 'Crimson Text', serif;
+            font-size: 16px;
+            font-weight: 400;
+            margin-bottom: 12px;
+            color: #1a1a1a;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .folder-list {
+            list-style: none;
+            margin-bottom: 16px;
+        }
+
+        .folder-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            color: #2c2c2c;
+            transition: all 0.15s ease;
+            margin-bottom: 2px;
+            position: relative;
+        }
+
+        .folder-item:hover {
+            background: #f8f8f8;
+        }
+
+        .folder-item.active {
+            background: #e8f5f3;
+            color: #2c5f57;
+            font-weight: 500;
+        }
+
+        .folder-item.subfolder {
+            padding-left: 28px;
+            font-size: 12.5px;
+        }
+
+        .folder-icon {
+            margin-right: 8px;
+            opacity: 0.7;
+        }
+
+        .folder-count {
+            background: #f0f0f0;
+            color: #666;
+            font-size: 11px;
+            padding: 2px 7px;
+            border-radius: 10px;
+            font-weight: 500;
+        }
+
+        .folder-item.active .folder-count {
+            background: #c8e7df;
+            color: #2c5f57;
+        }
+
+        .folder-actions {
+            display: none;
+            position: absolute;
+            right: 8px;
+            background: white;
+            padding: 2px 4px;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .folder-item:hover .folder-actions {
+            display: flex;
+            gap: 4px;
+        }
+
+        .folder-action-btn {
+            background: transparent;
+            border: none;
+            padding: 2px 6px;
+            font-size: 11px;
+            cursor: pointer;
+            color: #666;
+            border-radius: 3px;
+        }
+
+        .folder-action-btn:hover {
+            background: #f0f0f0;
+            color: #2c2c2c;
+        }
+
+        .folder-add-btn {
+            display: block;
+            width: 100%;
+            padding: 8px 12px;
+            background: transparent;
+            border: 1px dashed #d0d0d0;
+            border-radius: 6px;
+            color: #999;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .folder-add-btn:hover {
+            border-color: #2c2c2c;
+            color: #2c2c2c;
+            background: #fafafa;
+        }
+
+        .archive-main {
+            min-width: 0;
+        }
+
+        .archive-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .archive-header h3 {
+            font-family: 'Crimson Text', serif;
+            font-size: 22px;
+            font-weight: 400;
+            color: #1a1a1a;
+        }
+
+        .article-folder-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 12px;
+        }
+
+        .article-folder-tag {
+            background: #e8f5f3;
+            color: #2c5f57;
+            font-size: 11px;
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-weight: 500;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: white;
+            border-radius: 12px;
+            padding: 32px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal h3 {
+            font-family: 'Crimson Text', serif;
+            font-size: 22px;
+            font-weight: 400;
+            margin-bottom: 8px;
+            color: #1a1a1a;
+        }
+
+        .modal-subtitle {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .folder-checklist {
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid #e5e5e5;
+            border-radius: 6px;
+            padding: 8px;
+            margin-bottom: 16px;
+        }
+
+        .folder-checkbox-item {
+            display: flex;
+            align-items: center;
+            padding: 8px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: background 0.15s ease;
+        }
+
+        .folder-checkbox-item:hover {
+            background: #f8f8f8;
+        }
+
+        .folder-checkbox-item.subfolder {
+            padding-left: 32px;
+            font-size: 12.5px;
+        }
+
+        .folder-checkbox-item input[type="checkbox"] {
+            margin-right: 8px;
+            cursor: pointer;
+        }
+
+        .modal-input-row {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .modal-input-row input {
+            flex: 1;
+        }
+
+        .modal-input-row select {
+            flex: 1;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -393,9 +664,21 @@
         <!-- ARCHIVE TAB -->
         <div id="archive" class="tab-content">
             <div class="archive-controls">
-                <input type="text" class="search-box" id="archiveSearch" placeholder="Search your archive by title, author, topic..." onkeyup="filterArchive()">
+                <input type="text" class="search-box" id="archiveSearch" placeholder="Search archive by title, author, topic, or folder..." onkeyup="filterArchive()">
             </div>
-            <div id="archiveContent"></div>
+            <div class="archive-layout">
+                <div class="folder-sidebar">
+                    <h4>Folders</h4>
+                    <ul class="folder-list" id="folderList"></ul>
+                    <button class="folder-add-btn" onclick="openNewFolderModal(null)">+ New Folder</button>
+                </div>
+                <div class="archive-main">
+                    <div class="archive-header">
+                        <h3 id="currentFolderName">All Articles</h3>
+                    </div>
+                    <div id="archiveContent"></div>
+                </div>
+            </div>
         </div>
 
         <!-- SETTINGS TAB -->
@@ -503,6 +786,70 @@
         </div>
     </div>
 
+    <!-- Modal: Save Article to Folders -->
+    <div class="modal-overlay" id="saveArticleModal">
+        <div class="modal">
+            <h3>Save to Folders</h3>
+            <p class="modal-subtitle" id="saveModalArticleTitle"></p>
+            <div class="folder-checklist" id="saveFolderChecklist"></div>
+            <button class="folder-add-btn" onclick="openNewFolderModal('fromSave')">+ Create New Folder</button>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" onclick="closeModal('saveArticleModal')">Cancel</button>
+                <button class="btn" onclick="confirmSaveToFolders()">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: New Folder -->
+    <div class="modal-overlay" id="newFolderModal">
+        <div class="modal">
+            <h3>Create New Folder</h3>
+            <p class="modal-subtitle">Add a top-level folder or a subfolder within an existing folder.</p>
+            <div class="form-group">
+                <label>Folder Name</label>
+                <input type="text" id="newFolderName" placeholder="e.g., Pain Management">
+            </div>
+            <div class="form-group">
+                <label>Location</label>
+                <select id="newFolderParent">
+                    <option value="">Top level (no parent)</option>
+                </select>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" onclick="closeModal('newFolderModal')">Cancel</button>
+                <button class="btn" onclick="confirmNewFolder()">Create Folder</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Rename Folder -->
+    <div class="modal-overlay" id="renameFolderModal">
+        <div class="modal">
+            <h3>Rename Folder</h3>
+            <div class="form-group">
+                <label>New Name</label>
+                <input type="text" id="renameFolderInput" placeholder="Enter new name">
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" onclick="closeModal('renameFolderModal')">Cancel</button>
+                <button class="btn" onclick="confirmRenameFolder()">Rename</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Manage Article Folders -->
+    <div class="modal-overlay" id="manageArticleFoldersModal">
+        <div class="modal">
+            <h3>Edit Article Folders</h3>
+            <p class="modal-subtitle" id="manageModalArticleTitle"></p>
+            <div class="folder-checklist" id="manageFolderChecklist"></div>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" onclick="closeModal('manageArticleFoldersModal')">Cancel</button>
+                <button class="btn" onclick="confirmManageFolders()">Update</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         const DEFAULT_FILTERS = {
             startYear: 2016,
@@ -513,6 +860,17 @@
             sort: 'date'
         };
 
+        // Default folder structure
+        const DEFAULT_FOLDERS = [
+            { id: 'uncategorized', name: 'Uncategorized', parent: null }
+        ];
+
+        // State for modals
+        let currentArticleForSave = null;
+        let currentFolderForRename = null;
+        let currentArticleForManage = null;
+        let activeFolderFilter = 'all'; // 'all', 'uncategorized', or folder id
+
         function initStorage() {
             if (!localStorage.getItem('medicalResearchArchive')) {
                 localStorage.setItem('medicalResearchArchive', JSON.stringify([]));
@@ -522,6 +880,9 @@
             }
             if (!localStorage.getItem('searchFilters')) {
                 localStorage.setItem('searchFilters', JSON.stringify(DEFAULT_FILTERS));
+            }
+            if (!localStorage.getItem('folders')) {
+                localStorage.setItem('folders', JSON.stringify(DEFAULT_FOLDERS));
             }
             loadFilters();
             loadApiKey();
@@ -869,29 +1230,316 @@
         }
 
         function saveArticleFromData(article) {
+            // Check if already in archive
             const archive = JSON.parse(localStorage.getItem('medicalResearchArchive')) || [];
-            if (!archive.find(a => a.pmid === article.pmid)) {
-                archive.unshift({
-                    ...article,
-                    savedDate: new Date().toLocaleDateString(),
-                    savedTime: new Date().toLocaleTimeString()
-                });
-                localStorage.setItem('medicalResearchArchive', JSON.stringify(archive));
-                updateStats();
-                showStatus('Article saved to archive', 'success');
+            const existing = archive.find(a => a.pmid === article.pmid);
+            if (existing) {
+                // Article exists - open management modal for editing folders
+                currentArticleForManage = existing;
+                openManageFoldersModal();
             } else {
-                showStatus('Article already in archive', 'info');
+                // New article - open save modal to choose folders
+                currentArticleForSave = article;
+                openSaveModal();
             }
         }
 
+        function openSaveModal() {
+            document.getElementById('saveModalArticleTitle').textContent = currentArticleForSave.title;
+            renderFolderChecklist('saveFolderChecklist', []);
+            document.getElementById('saveArticleModal').classList.add('active');
+        }
+
+        function confirmSaveToFolders() {
+            const checked = Array.from(document.querySelectorAll('#saveFolderChecklist input:checked'))
+                .map(c => c.value);
+            const folderIds = checked.length > 0 ? checked : ['uncategorized'];
+            
+            const archive = JSON.parse(localStorage.getItem('medicalResearchArchive')) || [];
+            archive.unshift({
+                ...currentArticleForSave,
+                folderIds: folderIds,
+                savedDate: new Date().toLocaleDateString(),
+                savedTime: new Date().toLocaleTimeString()
+            });
+            localStorage.setItem('medicalResearchArchive', JSON.stringify(archive));
+            updateStats();
+            closeModal('saveArticleModal');
+            showStatus('Article saved to archive', 'success');
+            currentArticleForSave = null;
+        }
+
+        function openManageFoldersModal() {
+            document.getElementById('manageModalArticleTitle').textContent = currentArticleForManage.title;
+            renderFolderChecklist('manageFolderChecklist', currentArticleForManage.folderIds || ['uncategorized']);
+            document.getElementById('manageArticleFoldersModal').classList.add('active');
+        }
+
+        function confirmManageFolders() {
+            const checked = Array.from(document.querySelectorAll('#manageFolderChecklist input:checked'))
+                .map(c => c.value);
+            const folderIds = checked.length > 0 ? checked : ['uncategorized'];
+            
+            const archive = JSON.parse(localStorage.getItem('medicalResearchArchive')) || [];
+            const idx = archive.findIndex(a => a.pmid === currentArticleForManage.pmid);
+            if (idx !== -1) {
+                archive[idx].folderIds = folderIds;
+                localStorage.setItem('medicalResearchArchive', JSON.stringify(archive));
+            }
+            closeModal('manageArticleFoldersModal');
+            renderArchive();
+            renderFolderSidebar();
+            showStatus('Folders updated', 'success');
+            currentArticleForManage = null;
+        }
+
+        function renderFolderChecklist(containerId, preselectedIds) {
+            const folders = JSON.parse(localStorage.getItem('folders')) || DEFAULT_FOLDERS;
+            const container = document.getElementById(containerId);
+            
+            // Build hierarchy
+            const topLevel = folders.filter(f => f.parent === null);
+            let html = '';
+            
+            topLevel.forEach(folder => {
+                const checked = preselectedIds.includes(folder.id) ? 'checked' : '';
+                html += `
+                    <label class="folder-checkbox-item">
+                        <input type="checkbox" value="${folder.id}" ${checked}>
+                        📁 ${escapeHtml(folder.name)}
+                    </label>
+                `;
+                const subfolders = folders.filter(f => f.parent === folder.id);
+                subfolders.forEach(sub => {
+                    const subChecked = preselectedIds.includes(sub.id) ? 'checked' : '';
+                    html += `
+                        <label class="folder-checkbox-item subfolder">
+                            <input type="checkbox" value="${sub.id}" ${subChecked}>
+                            └ ${escapeHtml(sub.name)}
+                        </label>
+                    `;
+                });
+            });
+            
+            container.innerHTML = html;
+        }
+
+        // Folder Management Functions
+        function openNewFolderModal(context) {
+            const folders = JSON.parse(localStorage.getItem('folders')) || DEFAULT_FOLDERS;
+            const select = document.getElementById('newFolderParent');
+            const topLevel = folders.filter(f => f.parent === null);
+            
+            let options = '<option value="">Top level (no parent)</option>';
+            topLevel.forEach(folder => {
+                options += `<option value="${folder.id}">Inside: ${escapeHtml(folder.name)}</option>`;
+            });
+            select.innerHTML = options;
+            
+            document.getElementById('newFolderName').value = '';
+            document.getElementById('newFolderModal').classList.add('active');
+            document.getElementById('newFolderModal').dataset.context = context || '';
+        }
+
+        function confirmNewFolder() {
+            const name = document.getElementById('newFolderName').value.trim();
+            const parent = document.getElementById('newFolderParent').value || null;
+            const context = document.getElementById('newFolderModal').dataset.context;
+            
+            if (!name) {
+                alert('Please enter a folder name.');
+                return;
+            }
+            
+            const folders = JSON.parse(localStorage.getItem('folders')) || DEFAULT_FOLDERS;
+            const newId = 'folder_' + Date.now();
+            folders.push({ id: newId, name: name, parent: parent });
+            localStorage.setItem('folders', JSON.stringify(folders));
+            
+            closeModal('newFolderModal');
+            
+            // If we came from save modal, refresh that and reopen
+            if (context === 'fromSave') {
+                openSaveModal();
+            } else {
+                renderFolderSidebar();
+                renderArchive();
+            }
+            showStatus(`Folder "${name}" created`, 'success');
+        }
+
+        function openRenameFolderModal(folderId) {
+            const folders = JSON.parse(localStorage.getItem('folders')) || DEFAULT_FOLDERS;
+            const folder = folders.find(f => f.id === folderId);
+            if (!folder) return;
+            
+            currentFolderForRename = folderId;
+            document.getElementById('renameFolderInput').value = folder.name;
+            document.getElementById('renameFolderModal').classList.add('active');
+        }
+
+        function confirmRenameFolder() {
+            const newName = document.getElementById('renameFolderInput').value.trim();
+            if (!newName) {
+                alert('Please enter a folder name.');
+                return;
+            }
+            
+            const folders = JSON.parse(localStorage.getItem('folders')) || DEFAULT_FOLDERS;
+            const folder = folders.find(f => f.id === currentFolderForRename);
+            if (folder) {
+                folder.name = newName;
+                localStorage.setItem('folders', JSON.stringify(folders));
+            }
+            
+            closeModal('renameFolderModal');
+            renderFolderSidebar();
+            renderArchive();
+            showStatus('Folder renamed', 'success');
+            currentFolderForRename = null;
+        }
+
+        function deleteFolder(folderId) {
+            if (folderId === 'uncategorized') {
+                alert('Cannot delete the Uncategorized folder.');
+                return;
+            }
+            
+            const folders = JSON.parse(localStorage.getItem('folders')) || DEFAULT_FOLDERS;
+            const folder = folders.find(f => f.id === folderId);
+            if (!folder) return;
+            
+            // Check if folder has subfolders
+            const hasSubfolders = folders.some(f => f.parent === folderId);
+            if (hasSubfolders) {
+                if (!confirm(`"${folder.name}" contains subfolders. Delete this folder and all its subfolders? Articles will be moved to Uncategorized.`)) return;
+            } else {
+                if (!confirm(`Delete folder "${folder.name}"? Articles in it will be moved to Uncategorized.`)) return;
+            }
+            
+            // Collect all folder IDs to delete (folder + subfolders)
+            const idsToDelete = [folderId];
+            folders.filter(f => f.parent === folderId).forEach(sub => idsToDelete.push(sub.id));
+            
+            // Move articles from deleted folders to Uncategorized
+            const archive = JSON.parse(localStorage.getItem('medicalResearchArchive')) || [];
+            archive.forEach(article => {
+                if (article.folderIds) {
+                    const filtered = article.folderIds.filter(id => !idsToDelete.includes(id));
+                    article.folderIds = filtered.length > 0 ? filtered : ['uncategorized'];
+                }
+            });
+            localStorage.setItem('medicalResearchArchive', JSON.stringify(archive));
+            
+            // Remove the folders
+            const remainingFolders = folders.filter(f => !idsToDelete.includes(f.id));
+            localStorage.setItem('folders', JSON.stringify(remainingFolders));
+            
+            // Reset active filter if we just deleted the active folder
+            if (idsToDelete.includes(activeFolderFilter)) {
+                activeFolderFilter = 'all';
+            }
+            
+            renderFolderSidebar();
+            renderArchive();
+            showStatus(`Folder deleted`, 'success');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        function setActiveFolder(folderId) {
+            activeFolderFilter = folderId;
+            renderFolderSidebar();
+            renderArchive();
+        }
+
+        function renderFolderSidebar() {
+            const folders = JSON.parse(localStorage.getItem('folders')) || DEFAULT_FOLDERS;
+            const archive = JSON.parse(localStorage.getItem('medicalResearchArchive')) || [];
+            const list = document.getElementById('folderList');
+            
+            const getCount = (folderId) => {
+                if (folderId === 'all') return archive.length;
+                return archive.filter(a => (a.folderIds || ['uncategorized']).includes(folderId)).length;
+            };
+            
+            let html = `
+                <li class="folder-item ${activeFolderFilter === 'all' ? 'active' : ''}" onclick="setActiveFolder('all')">
+                    <span><span class="folder-icon">📚</span>All Articles</span>
+                    <span class="folder-count">${getCount('all')}</span>
+                </li>
+            `;
+            
+            const topLevel = folders.filter(f => f.parent === null);
+            topLevel.forEach(folder => {
+                const isActive = activeFolderFilter === folder.id;
+                const isUncategorized = folder.id === 'uncategorized';
+                html += `
+                    <li class="folder-item ${isActive ? 'active' : ''}" onclick="setActiveFolder('${folder.id}')">
+                        <span><span class="folder-icon">📁</span>${escapeHtml(folder.name)}</span>
+                        <span class="folder-count">${getCount(folder.id)}</span>
+                        ${!isUncategorized ? `
+                            <div class="folder-actions" onclick="event.stopPropagation()">
+                                <button class="folder-action-btn" onclick="openRenameFolderModal('${folder.id}')" title="Rename">✏️</button>
+                                <button class="folder-action-btn" onclick="deleteFolder('${folder.id}')" title="Delete">🗑️</button>
+                            </div>
+                        ` : ''}
+                    </li>
+                `;
+                const subfolders = folders.filter(f => f.parent === folder.id);
+                subfolders.forEach(sub => {
+                    const subActive = activeFolderFilter === sub.id;
+                    html += `
+                        <li class="folder-item subfolder ${subActive ? 'active' : ''}" onclick="setActiveFolder('${sub.id}')">
+                            <span><span class="folder-icon">└</span>${escapeHtml(sub.name)}</span>
+                            <span class="folder-count">${getCount(sub.id)}</span>
+                            <div class="folder-actions" onclick="event.stopPropagation()">
+                                <button class="folder-action-btn" onclick="openRenameFolderModal('${sub.id}')" title="Rename">✏️</button>
+                                <button class="folder-action-btn" onclick="deleteFolder('${sub.id}')" title="Delete">🗑️</button>
+                            </div>
+                        </li>
+                    `;
+                });
+            });
+            
+            list.innerHTML = html;
+        }
+
+        function getFolderName(folderId) {
+            const folders = JSON.parse(localStorage.getItem('folders')) || DEFAULT_FOLDERS;
+            const folder = folders.find(f => f.id === folderId);
+            return folder ? folder.name : folderId;
+        }
+
         function renderArchive() {
+            renderFolderSidebar();
+            
             const archive = JSON.parse(localStorage.getItem('medicalResearchArchive')) || [];
             const searchTerm = document.getElementById('archiveSearch').value.toLowerCase();
-            const filtered = archive.filter(a =>
+            
+            // Update header
+            const headerEl = document.getElementById('currentFolderName');
+            if (activeFolderFilter === 'all') {
+                headerEl.textContent = 'All Articles';
+            } else {
+                headerEl.textContent = getFolderName(activeFolderFilter);
+            }
+            
+            // Filter by folder
+            let folderFiltered = archive;
+            if (activeFolderFilter !== 'all') {
+                folderFiltered = archive.filter(a => (a.folderIds || ['uncategorized']).includes(activeFolderFilter));
+            }
+            
+            // Filter by search
+            const filtered = folderFiltered.filter(a =>
                 a.title.toLowerCase().includes(searchTerm) ||
                 a.authors.toLowerCase().includes(searchTerm) ||
                 a.journal.toLowerCase().includes(searchTerm) ||
-                (a.sourceTopic || '').toLowerCase().includes(searchTerm)
+                (a.sourceTopic || '').toLowerCase().includes(searchTerm) ||
+                (a.folderIds || []).some(fid => getFolderName(fid).toLowerCase().includes(searchTerm))
             );
 
             const container = document.getElementById('archiveContent');
@@ -900,16 +1548,21 @@
                 container.innerHTML = `
                     <div class="empty-state">
                         <div class="empty-state-icon">📚</div>
-                        <p>${archive.length === 0 ? 'Your archive is empty. Search and save articles to get started.' : 'No results match your search.'}</p>
+                        <p>${archive.length === 0 ? 'Your archive is empty. Search and save articles to get started.' : 'No articles in this view.'}</p>
                     </div>
                 `;
                 return;
             }
 
             container.innerHTML = `<div class="results-container">
-                ${filtered.map(article => `
+                ${filtered.map(article => {
+                    const folderTags = (article.folderIds || ['uncategorized']).map(fid => 
+                        `<span class="article-folder-tag">📁 ${escapeHtml(getFolderName(fid))}</span>`
+                    ).join('');
+                    return `
                     <div class="article-card">
                         <div class="article-title">${escapeHtml(article.title)}</div>
+                        <div class="article-folder-tags">${folderTags}</div>
                         <div class="article-meta">
                             <span>${escapeHtml(article.authors.split(',').slice(0, 3).join(', '))}${article.authors.split(',').length > 3 ? ' et al.' : ''}</span>
                             <span>${escapeHtml(article.journal)} ${article.year}</span>
@@ -924,11 +1577,22 @@
                         <div class="article-actions">
                             <a href="https://pubmed.ncbi.nlm.nih.gov/${article.pmid}/" target="_blank">PubMed Link</a>
                             ${article.doi ? `<a href="https://doi.org/${article.doi}" target="_blank">DOI Link</a>` : ''}
+                            <button onclick='openManageFoldersForArticle("${article.pmid}")'>Edit Folders</button>
                             <button onclick="removeFromArchive('${article.pmid}')">Remove</button>
                         </div>
                     </div>
-                `).join('')}
+                `;
+                }).join('')}
             </div>`;
+        }
+
+        function openManageFoldersForArticle(pmid) {
+            const archive = JSON.parse(localStorage.getItem('medicalResearchArchive')) || [];
+            const article = archive.find(a => a.pmid === pmid);
+            if (article) {
+                currentArticleForManage = article;
+                openManageFoldersModal();
+            }
         }
 
         function filterArchive() { renderArchive(); }
